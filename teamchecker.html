@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intrams! - Team checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2025.7.3/core.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Fredoka:wght@400;600&family=Bubblegum+Sans&family=Comfortaa:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Fredoka', sans-serif;
+            background: url('https://jp.chiikawa-pocket.com/ja/_next/static/media/bgImage.c5b6a565.png') center/cover no-repeat fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            width: 100%;
+            padding: 15px 50px;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+
+        .nav-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Chiikawa Logo */
+        .logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            font-family: 'Shrikhand', cursive;
+            font-size: 20px;
+            color: #ff69b4; 
+        }
+
+        .nav-right a {
+            margin-left: 35px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #303030;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-right a:hover {
+            color: #ff69b4;
+        }
+
+        .nav-right a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background: #fdf8f9;
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+
+        .nav-right a:hover::after {
+            width: 100%;
+        }
+
+        /* CARD */
+        .chiikawa-card {
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(255,182,189,0.3);
+            border: none;
+            text-align: center; 
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            transition: 0.4s;
+        }
+
+        .chiikawa-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 35px 60px rgba(255,182,189,0.4);
+        }
+
+        h2 {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 32px;
+            background: linear-gradient(90deg,  #ff77ad, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-family: 'Comfortaa', cursive;
+            color: #444;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ffd7d5;
+            background-color: rgba(255,255,255,0.6);
+            vertical-align: middle;
+            transition: 0.3s;
+        }
+
+        .form-check-input:checked {
+            background-color: #ffb6bd;
+            border-color: #ffb6bd;
+        }
+
+        .form-check-label {
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+    
+        .form-select {
+            border-radius: 15px;
+            border: 2px solid #ffd7d5;
+            text-align-last: center; 
+            margin-bottom: 0.5rem;
+            background-color: rgba(255,255,255,0.6); /* TRANSPARENCY */
+            transition: 0.3s;
+        }
+
+        .form-select:focus {
+            border-color: #afdcf1;
+            background-color: rgba(255,255,255,0.8); /* slightly more opaque on focus */
+            box-shadow: 0 0 12px rgba(175,220,241,0.5);
+            outline: none;
+        }
+
+        .btn-signup {
+            background: linear-gradient(90deg, #ff77ad, #ff69b4);
+            color: white;
+            border-radius: 999px;
+            font-weight: 600;
+            padding: 12px 0;
+            border: none;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px rgba(175,220,241,0.4);
+        }
+
+        #output {
+            font-family: 'Comfortaa', cursive;
+            color: #444;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .chiikawa-card {
+                width: 90%;
+            }
+
+            .header-banner {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-title">
+            <img src="https://i.pinimg.com/originals/07/33/29/073329087de75dabc08563d0c75cc410.png" class="logo">
+            <span class="brand-text">Intramurals SY 2025-2026</span>
+        </div>
+        <div class="nav-right">
+            <a href="index.html">SIGN UP</a>
+            <a href="teamchecker.html">TEAM CHECKER</a>
+            <a href="#">PLAYERS</a>
+        </div>
+    </nav>
+
+    <!-- TEAM CHECKER CARD -->
+    <div class="chiikawa-card">
+        <h2>Intramurals Team Checker</h2>
+
+        <form>
+            <div class="mb-3">
+                <label class="form-label">Are you done with the online registration?</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reg_status" value="yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="reg_status" value="no">
+                    <label class="form-check-label">No</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Do you have medical clearance?</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="med_status" value="yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="med_status" value="no">
+                    <label class="form-check-label">No</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Grade & Section</label>
+                <select id="grade" class="form-select mb-2">
+                    <option value="7">Grade 7</option>
+                    <option value="8">Grade 8</option>
+                    <option value="9">Grade 9</option>
+                    <option value="10">Grade 10</option>
+                </select>
+
+                <select id="class_section" class="form-select">
+                    <option value="emerald">Chiikawa</option>
+                    <option value="ruby">Hachiware</option>
+                    <option value="sapphire">Usagi</option>
+                    <option value="topaz">Momonga</option>
+                </select>
+            </div>
+
+            <div class="d-grid">
+                <input type="button" py-click="check_intrams" value="Sign Up" class="btn btn-signup">
+            </div>
+        </form>
+
+        <div id="output" class="mt-3"></div>
+        <div id="image" class="mt-3"></div>
+    </div>
+
+    <py-script src="teamchecker.py"></py-script>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intrams! - Players</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2025.7.3/core.js"></script>
+
+    <style>
+        html, body{
+            height: 100%;
+        }
+
+        body{
+            font-family: Fredoka, sans-serif;
+            background-image: url("https://i.pinimg.com/1200x/68/1b/ce/681bce08e256d19dbb9566e79c1bf7fb.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+        }
+
+        .wrapper{
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 140px 15px 40px 15px;
+        }
+
+        .floating-box{
+            position: relative;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(1px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            padding: 50px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .floating-box::before{
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            border: 4px dashed rgba(255,255,255,0.9);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 15px 50px;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+/*NAVBAR*/
+        .nav-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            font-family: 'Shrikhand', cursive;
+            font-size: 20px;
+            color: #ff69b4; 
+        }
+
+        .nav-right a {
+            margin-left: 35px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #303030;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-right a:hover {
+            color: #ff69b4;
+        }
+
+        .nav-right a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background: #fdf8f9;
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+
+        .nav-right a:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="nav-title">
+        <img src="https://i.pinimg.com/originals/07/33/29/073329087de75dabc08563d0c75cc410.png" class="logo">
+        <span class="brand-text">Intramurals SY 2025-2026</span>
+    </div>
+
+    <div class="nav-right">
+        <a href="index.html">SIGN UP</a>
+        <a href="teamchecker.html">TEAM CHECKER</a>
+        <a href="players.html">PLAYERS</a>
+    </div>
+</nav>
+
+<div class="wrapper">
+    <div class="floating-box text-center">
+        <h3 class="mb-4">
+            <b><span style="color: teal;">✮°˖➴ Players!</span></b>
+        </h3>
+
+        <div class="d-grid">
+            <button type="button" py-click="toggle_players" class="btn btn-info" id="toggleBtn">
+                SHOW PLAYERS
+            </button>
+        </div>
+
+        <div id="output" class="mt-3 text-start"></div>
+    </div>
+</div>
+
+<py-script src="players.py"></py-script>
+
+</body>
+</html>
